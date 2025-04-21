@@ -8,10 +8,16 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import javax.swing.JOptionPane;
 
-
+/**
+ * Calculadora usando la librería SWT con interfaz gráfica.
+ * Permite hacer operaciones básicas y mostrar el resultado por pantalla.
+ *
+ * @author José Flores
+ * @version 1.0
+ */
 public class Calculadora {
 
-    // Constantes
+    // ConstantesS
     final int MAX_DIGITS = 5;
     final int MODE_ENTRADA = 0;
     final int MODE_RESULTADO = 1;
@@ -26,6 +32,11 @@ public class Calculadora {
 
     private static Text texto_resultado;
 
+
+    /**
+     * Constructor de la calculadora.
+     * sí "gui" es true si se  muestra la interfaz gráfica, false si no.
+     */
     public Calculadora(boolean gui) {
 
         //Inicialización de las variables.
@@ -34,6 +45,11 @@ public class Calculadora {
         if (gui==true) dibujaCalculadora();
 
     }
+
+    /**
+     * Crea y muestra la interfaz gráfica de la calculadora.
+     * Se construye la ventana, los botones y se configura su comportamiento.
+     */
 
     private void dibujaCalculadora() {
 
@@ -229,6 +245,10 @@ public class Calculadora {
         }
     }
 
+    /**
+     * Inicializa las variables internas de la calculadora.
+     * Se pone todo a cero para empezar desde un estado limpio.
+     */
     public void inicializa() {
         operacion = "null";
         valor1 = 0;
@@ -237,19 +257,38 @@ public class Calculadora {
         inicializa_resultado = true;
     }
 
+    /**
+     * Devuelve el contenido actual del visor de la calculadora.
+     *
+     * @return Texto mostrado por pantalla.
+     */
+
     public String getResultadoString (){
         return texto_resultado.getText();
     }
 
+    /**
+     * Establece el contenido del visor de la calculadora.
+     *
+     * @param s Texto que se quiere mostrar .
+     */
     public void setResultadoString(String s){
         texto_resultado.setText(s);
     }
-
+    /**
+     * Devuelve el valor numérico del visor convertido a entero.
+     *
+     * @return Número entero actual de la interfaz gráfica.
+     */
     public int getResultadoInt() {
         String resultado = texto_resultado.getText();
         return Integer.parseInt(resultado);
     }
-
+    /**
+     * Añade un nuevo dígito a la interfaz de la calculadora.
+     *
+     * @param digito numero pulsado por el usuario (0–9).
+     */
     public void anadeNuevoDigito(int digito){
         if (inicializa_resultado)
             setResultadoString("");
@@ -267,6 +306,12 @@ public class Calculadora {
         modo = MODE_ENTRADA;
         inicializa_resultado = false;
     }
+
+    /**
+     * Guarda la operación seleccionada y calcula el resultado si ya había una pendiente de realizarse.
+     *
+     * @param new_operacion Símbolo de la "nueva" operación seleccionada (+, -, *, /).
+     */
 
     public void ejecutarOperador(String new_operacion) {
 
@@ -290,6 +335,7 @@ public class Calculadora {
         operacion = new_operacion;
     }
 
+    // Ejecuta la operaciónactual usando "valor1" y "valor2" y muestra el resultado
     public void ejecutarIgual(){
         int resultado = 0;
 
@@ -300,6 +346,12 @@ public class Calculadora {
         operacion = "null";
     }
 
+    /**
+     * Realiza la operación pendiente según el operador seleccionado.
+     * Si es división entre 0, muestra un error.
+     *
+     * @return Resultado de la operación.
+     */
     public int ejecutarOperacion() {
         int resultado = 0;
 
@@ -330,6 +382,11 @@ public class Calculadora {
         return resultado;
     }
 
+    /**
+     * Muestra el resultado  en la interfaz gráfica y actualiza el estado interno.
+     *
+     * @param resultado Resultado a mostrar.
+     */
     public void muestraResultado(int resultado){
         setResultadoString(Integer.toString(resultado));
         valor1 = resultado;
@@ -337,6 +394,9 @@ public class Calculadora {
         inicializa_resultado = true;
     }
 
+    /**
+     * Método principal para lanzar la calculadora
+     */
     public static void main(String args[]) {
         Calculadora calculadora = new Calculadora(true);
     }
